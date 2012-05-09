@@ -2,8 +2,7 @@ def rubyquiz
   ways = ['', '-', '+'].repeated_permutation(8).to_a
 
   ways.each do |w|
-    # eq = (1..9).to_a.join('%s') % w
-    eq = "1%s2%s3%s4%s5%s6%s7%s8%s9" % w
+    eq = (1..9).to_a.join('%s') % w
     puts eq if eval(eq) == 100
   end
   return
