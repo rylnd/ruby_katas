@@ -3,7 +3,16 @@ class String
     self.chars.inject('') { |string, char| string + char.rot13 }
   end
 
+  def shift i
+    self.chars.inject('') { |string, char| string + char.cshift(i) }
+  end
+
   protected
+
+  def cshift i
+   c = self.ord + i
+   c.chr
+  end
 
   def rot13
     i = self.ord
