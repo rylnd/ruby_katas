@@ -6,13 +6,8 @@ class Board
   attr_accessor :board
 
   def initialize(size = 100)
-    @size = size
     @board = instantiate_board(size)
     @ant = Ant.new(self)
-  end
-
-  def first_square
-    @board[50][50]
   end
 
   def [](x)
@@ -26,15 +21,11 @@ class Board
   private
 
   def instantiate_board(size)
-    board = []
-    size.times do |x|
-      row = []
-      size.times do |y|
-        row << BoardSquare.new(x,y)
+    Array.new(size) do |x|
+      Array.new(size) do |y|
+        BoardSquare.new(x,y)
       end
-      board << row
     end
-    board
   end
 
   def step

@@ -1,9 +1,7 @@
-require_relative 'board_square.rb'
-
 class Ant
   def initialize(board)
     @board = board
-    @square = @board.first_square
+    @square = @board[50][50]
     @dir = [0,1,2,3].shuffle.first
   end
 
@@ -22,17 +20,13 @@ class Ant
   end
 
   def move_forward!
-    x,y = @square.x, @square.y
-    @square = case @dir
-              when 0
-                @board[x][y+1]
-              when 1
-                @board[x+1][y]
-              when 2
-                @board[x][y-1]
-              when 3
-                @board[x-1][y]
-              end
+    x, y = @square.x, @square.y
+
+    @square = { 0 => @board[x][y+1],
+                1 => @board[x+1][y],
+                2 => @board[x][y-1],
+                3 => @board[x-1][y],
+              }[@dir]
   end
 
   def out_of_bounds
