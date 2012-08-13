@@ -1,10 +1,4 @@
-require_relative 'board_square.rb'
-require_relative 'board_output.rb'
-require_relative 'ant.rb'
-
 class Board
-  attr_accessor :board
-
   def initialize(size = 100)
     @board = instantiate_board(size)
     @ant = Ant.new(self)
@@ -12,6 +6,10 @@ class Board
 
   def [](x)
     @board[x] || []
+  end
+
+  def rows
+    @board
   end
 
   def run!
