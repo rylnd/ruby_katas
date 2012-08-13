@@ -44,5 +44,4 @@ class Board
     end
     `open output.html`
   end
-
 end
