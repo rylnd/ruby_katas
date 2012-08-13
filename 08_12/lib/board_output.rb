@@ -5,7 +5,7 @@ class BoardOutput
   end
 
   def color(square)
-    square.color ? 'black' : 'white'
+    square.black? ? 'black' : 'white'
   end
 
   def to_html

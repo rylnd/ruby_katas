@@ -5,8 +5,7 @@ require_relative 'ant.rb'
 class Board
   attr_accessor :board
 
-  def initialize(steps = 10000, size = 100)
-    @steps = steps
+  def initialize(size = 100)
     @size = size
     @board = instantiate_board(size)
     @ant = Ant.new(self)
@@ -21,10 +20,7 @@ class Board
   end
 
   def run!
-    @steps.times do
-      step
-    end
-    end_game
+    loop { step }
   end
 
   private
@@ -47,9 +43,6 @@ class Board
   end
 
   def end_game
-    puts '*' * 50
-    puts 'GAME OVER'
-    puts '*' * 50
     print
     exit
   end

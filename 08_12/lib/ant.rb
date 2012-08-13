@@ -1,17 +1,14 @@
 require_relative 'board_square.rb'
 
 class Ant
-  attr_accessor :square, :dir
-
   def initialize(board)
-    puts "Ant inited with '#{board}'"
     @board = board
     @square = @board.first_square
     @dir = [0,1,2,3].shuffle.first
   end
 
   def move!
-    @square.color ? turn_left! : turn_right!
+    @square.black? ? turn_left! : turn_right!
     @square.flip!
     move_forward!
   end
