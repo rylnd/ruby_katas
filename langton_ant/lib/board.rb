@@ -4,6 +4,7 @@ class Board
   def initialize(options = {})
     @size = options[:size] || 100
     @steps = options[:steps] || 10_000
+    @filename = options[:filename] || "#{@steps}_steps.png"
     @board = instantiate_board(@size)
     @ant = Ant.new(self)
   end
@@ -41,6 +42,6 @@ class Board
   end
 
   def print
-    BoardOutput.new(self, filename: "output#{@steps}.png")
+    BoardOutput.new(self, filename: @filename)
   end
 end
