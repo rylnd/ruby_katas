@@ -3,14 +3,18 @@ class BoardSquare
 
   def initialize(x,y)
     @x, @y = x,y
-    @value = true
+    @state = BoardState.new
   end
 
-  def black?
-    @value
+  def color
+    @state.color
   end
 
-  def flip!
-    @value = !@value
+  def transition!
+    @state.transition!
+  end
+
+  def left?
+    @state.color == :black || @state.color == :blue
   end
 end

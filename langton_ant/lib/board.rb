@@ -1,6 +1,9 @@
 class Board
-  def initialize(size = 100)
-    @board = instantiate_board(size)
+  attr_reader :steps
+
+  def initialize(options = {})
+    @steps = options[:steps] || 10000
+    @board = instantiate_board(options[:size] || 100)
     @ant = Ant.new(self)
   end
 
@@ -13,7 +16,8 @@ class Board
   end
 
   def run!
-    loop { step }
+    @steps.times { step }
+    end_game
   end
 
   private
@@ -33,7 +37,6 @@ class Board
 
   def end_game
     print
-    exit
   end
 
   def print

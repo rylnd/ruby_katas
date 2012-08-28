@@ -2,12 +2,12 @@ class Ant
   def initialize(board)
     @board = board
     @square = @board[50][50]
-    @dir = [0,1,2,3].shuffle.first
+    @dir = 0
   end
 
   def move!
-    @square.black? ? turn_left! : turn_right!
-    @square.flip!
+    @square.left? ? turn_left! : turn_right!
+    @square.transition!
     move_forward!
   end
 
