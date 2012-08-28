@@ -21,7 +21,6 @@ class BoardOutput
   end
 
   def save_image
-    Dir.mkdir('output') unless Dir.exist?('output')
     @image.save("output/#{@filename}")
   end
 end

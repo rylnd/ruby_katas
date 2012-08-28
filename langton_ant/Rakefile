@@ -1,0 +1,35 @@
+require 'rubygems'
+require 'bundler/setup'
+
+Bundler.require
+
+Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
+
+task :default => [:test]
+
+namespace :ant do
+  directory 'output'
+
+  desc 'Run the simulation'
+  task :run, [:rounds, :step] => 'output' do |_, args|
+    args.with_defaults(:rounds => 20, :step => 5_000)
+
+    args.rounds.times do |i|
+      steps = (i+1) * args.step
+      Board.new(:steps => steps, :filename => "#{i}.png").run!
+    end
+  end
+
+
+  desc "Generates an animated .gif of the ant's progress"
+  task :generate_animation  => :run do
+    slides = Dir['output/*.png'].sort_by do |f|
+      f.gsub('output/', '').split('.')[0].to_i
+    end
+
+    include Magick
+    animation = ImageList.new(*slides)
+    animation.delay = 10
+    animation.write("output/output.gif")
+  end
+end
