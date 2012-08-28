@@ -3,10 +3,12 @@ Ruby Katas
 
 ### [Langton's Ant](http://en.wikipedia.org/wiki/Langton's_ant)
 ----
-![animation](https://raw.github.com/ryalnd/ruby_katas/llrr/langton_ant/doc/animation.gif)
+![animation](https://raw.github.com/ryalnd/ruby_katas/master/langton_ant/doc/animation.gif)
 
-This branch implements the [LLRR](http://en.wikipedia.org/wiki/Langton's_ant#Extension_to_multiple_colors)
+This implements the [LLRR](http://en.wikipedia.org/wiki/Langton's_ant#Extension_to_multiple_colors)
 version of the algorithm. It also outputs a colored animation of the ant's progression after every 5000 steps.
+
+For the original implementation, please see [this branch](https://github.com/ryalnd/ruby_katas/tree/orig_langton_ant)
 
 ### Integer to English
 ----
