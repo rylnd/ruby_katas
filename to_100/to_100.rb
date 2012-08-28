@@ -1,4 +1,4 @@
-def rubyquiz
+def to_100
   ways = ['', '-', '+'].repeated_permutation(8).to_a
 
   ways.each do |w|
@@ -8,7 +8,7 @@ def rubyquiz
   return
 end
 
-def rubyquiz2
+def to_100_again
   ways = ['', '-', '+'].repeated_permutation(8).to_a
 
   ways.reduce([]) do |arr, el|
