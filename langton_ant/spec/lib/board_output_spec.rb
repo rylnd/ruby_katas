@@ -1,0 +1,2 @@
+describe BoardOutput do
+end

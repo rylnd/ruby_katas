@@ -1,11 +1,12 @@
 require 'rubygems'
 require 'bundler/setup'
-
 Bundler.require
+require 'rspec/core/rake_task'
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
-task :default => [:test]
+task :default => :spec
+RSpec::Core::RakeTask.new(:spec)
 
 namespace :ant do
   directory 'output'

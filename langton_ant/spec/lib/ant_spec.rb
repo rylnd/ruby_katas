@@ -1,0 +1,2 @@
+describe Ant do
+end
