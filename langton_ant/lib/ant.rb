@@ -2,7 +2,7 @@ class Ant
   def initialize(board)
     @board = board
     @square = @board[50][50]
-    @dir = 0
+    @dir = 1
   end
 
   def move!

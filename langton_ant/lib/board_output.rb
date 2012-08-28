@@ -1,22 +1,26 @@
 class BoardOutput
-  def initialize(board)
-    @board = board
-    @page = ''
-  end
+  attr_reader :filename
 
-  def to_html
-    generate_page
-    @page
+  def initialize(board, options={})
+    @board = board
+    @filename = options[:filename] || 'output.png'
+    generate_image
+    save_image
   end
 
   private
-  def generate_page
-    @page << "<h2>Ran #{@board.steps} times</h2>\n"
-    @board.rows.each do |row|
-      @page << "<div style='clear:left'></div>\n"
-      row.each do |square|
-        @page << %Q|<div style="float:left;height:10px;width:10px;background-color:#{square.color}"></div>\n|
+
+  def generate_image
+    @image = ChunkyPNG::Image.new(@board.size, @board.size)
+
+    @board.rows.each_with_index do |row, x|
+      row.each_with_index do |square, y|
+        @image[x,y] = ChunkyPNG::Color(square.color)
       end
     end
+  end
+
+  def save_image
+    @image.save(@filename)
   end
 end

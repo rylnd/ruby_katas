@@ -1,9 +1,10 @@
 class Board
-  attr_reader :steps
+  attr_reader :steps, :size
 
   def initialize(options = {})
-    @steps = options[:steps] || 10000
-    @board = instantiate_board(options[:size] || 100)
+    @size = options[:size] || 100
+    @steps = options[:steps] || 10_000
+    @board = instantiate_board(@size)
     @ant = Ant.new(self)
   end
 
@@ -40,9 +41,6 @@ class Board
   end
 
   def print
-    File.open('output.html', 'w') do |file|
-      file << BoardOutput.new(self).to_html
-    end
-    `open output.html`
+    BoardOutput.new(self, filename: "output#{@steps}.png")
   end
 end
