@@ -2,11 +2,7 @@ require 'rspec'
 
 def y
   lambda do |f|
-    lambda do |x|
-      f.(
-        lambda { |v| x.(x).(v) }
-      )
-    end
+    lambda { |x| x.(x) }
     .(
       lambda do |x|
         f.(
