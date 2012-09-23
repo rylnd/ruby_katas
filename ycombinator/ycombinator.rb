@@ -1,12 +1,20 @@
 require 'rspec'
 
 def y
-  lambda { |f| f.(f) }
-  .(
-    lambda do |f|
-      yield lambda { |*args| f.(f).(*args) }
+  lambda do |f|
+    lambda do |x|
+      f.(
+        lambda { |v| x.(x).(v) }
+      )
     end
-  )
+    .(
+      lambda do |x|
+        f.(
+          lambda { |v| x.(x).(v) }
+        )
+      end
+    )
+  end
 end
 
 describe 'YCombinator' do
@@ -23,14 +31,14 @@ describe 'YCombinator' do
       end
     end
 
-    def factorial(n)
-      y(&almost_factorial).(n)
+    let(:factorial) do
+      y.(almost_factorial)
     end
 
     [1, 1, 2, 6, 24, 120, 720]
     .each_with_index do |expected, i|
       it "calculates #{i}!" do
-        factorial(i).should == expected
+        factorial.(i).should == expected
       end
     end
   end
@@ -49,14 +57,14 @@ describe 'YCombinator' do
       end
     end
 
-    def fibonacci(n)
-      y(&almost_fibonacci).(n)
+    let(:fibonacci) do
+      y.(almost_fibonacci)
     end
 
     [0, 1, 1, 2, 3, 5, 8, 13]
     .each_with_index do |expected, i|
       it "calculates fibonacci(#{i})" do
-        fibonacci(i).should == expected
+        fibonacci.(i).should == expected
       end
     end
   end
