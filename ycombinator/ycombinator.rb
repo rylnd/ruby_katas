@@ -1,7 +1,12 @@
 require 'rspec'
 
 def y
-  lambda { |n| n }
+  lambda { |f| f.call(f) }
+  .call(
+    lambda do |f|
+      yield lambda { |*args| f.call(f).call(*args) }
+    end
+  )
 end
 
 describe 'YCombinator' do
