@@ -11,7 +11,6 @@ end
 
 describe 'YCombinator' do
   describe 'factorial' do
-
     let(:almost_factorial) do
       lambda do |function|
         lambda do |n|
@@ -38,6 +37,31 @@ describe 'YCombinator' do
 
     it 'should calculate factorial(3)' do
       factorial(3).should == 6
+    end
+  end
+
+  describe 'fibonacci' do
+    let(:almost_fibonacci) do
+      lambda do |function|
+        lambda do |n|
+          case n
+          when 0, 1
+            n
+          else
+            function.call(n-1) + function.call(n-2)
+          end
+        end
+      end
+    end
+
+    def fibonacci(n)
+      y(&almost_fibonacci).call(n)
+    end
+
+    [0, 1, 1, 2, 3, 5, 8, 13].each_with_index do |expected, i|
+      it "calculates fibonacci(#{i})" do
+        fibonacci(i).should == expected
+      end
     end
   end
 end
