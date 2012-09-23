@@ -27,16 +27,11 @@ describe 'YCombinator' do
       y(&almost_factorial).call(n)
     end
 
-    it 'should calculate factorial(0)' do
-      factorial(0).should == 1
-    end
-
-    it 'should calculate factorial(2)' do
-      factorial(2).should == 2
-    end
-
-    it 'should calculate factorial(3)' do
-      factorial(3).should == 6
+    [1, 1, 2, 6, 24, 120, 720]
+    .each_with_index do |expected, i|
+      it "calculates #{i}!" do
+        factorial(i).should == expected
+      end
     end
   end
 
@@ -58,7 +53,8 @@ describe 'YCombinator' do
       y(&almost_fibonacci).call(n)
     end
 
-    [0, 1, 1, 2, 3, 5, 8, 13].each_with_index do |expected, i|
+    [0, 1, 1, 2, 3, 5, 8, 13]
+    .each_with_index do |expected, i|
       it "calculates fibonacci(#{i})" do
         fibonacci(i).should == expected
       end
