@@ -1,10 +1,10 @@
 require 'rspec'
 
 def y
-  lambda { |f| f.call(f) }
-  .call(
+  lambda { |f| f.(f) }
+  .(
     lambda do |f|
-      yield lambda { |*args| f.call(f).call(*args) }
+      yield lambda { |*args| f.(f).(*args) }
     end
   )
 end
@@ -17,14 +17,14 @@ describe 'YCombinator' do
           if n == 0
             1
           else
-            n * function.call(n-1)
+            n * function.(n-1)
           end
         end
       end
     end
 
     def factorial(n)
-      y(&almost_factorial).call(n)
+      y(&almost_factorial).(n)
     end
 
     [1, 1, 2, 6, 24, 120, 720]
@@ -43,14 +43,14 @@ describe 'YCombinator' do
           when 0, 1
             n
           else
-            function.call(n-1) + function.call(n-2)
+            function.(n-1) + function.(n-2)
           end
         end
       end
     end
 
     def fibonacci(n)
-      y(&almost_fibonacci).call(n)
+      y(&almost_fibonacci).(n)
     end
 
     [0, 1, 1, 2, 3, 5, 8, 13]
