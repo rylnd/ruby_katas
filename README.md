@@ -25,3 +25,7 @@ Description to come
 ### Getting to 100
 ----
 Description to come
+
+### [Y Combinator](http://en.wikipedia.org/wiki/Fixed-point_combinator#Y_combinator)
+----
+Functional Programming! In Ruby!
