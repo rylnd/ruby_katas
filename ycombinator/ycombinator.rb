@@ -4,9 +4,9 @@ def y
   lambda do |f|
     lambda { |x| x.(x) }
     .(
-      lambda do |x|
+      lambda do |y|
         f.(
-          lambda { |v| x.(x).(v) }
+          lambda { |z| y.(y).(z) }
         )
       end
     )
