@@ -7,7 +7,7 @@ describe 'Balancer' do
   end
 
   it 'adds a method to string' do
-    '[[]]'.should respond_to(:balanced?)
+    ''.should respond_to(:balanced?)
   end
 
   context 'recognizing balanced brackets' do
