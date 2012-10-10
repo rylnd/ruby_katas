@@ -26,6 +26,22 @@ describe 'Balancer' do
     example 'an out-of-order pair' do
       ']['.should_not be_balanced
     end
+
+    it 'works for the previded examples' do
+      %w|[[]
+         []]
+         ][][
+         ][][][
+         ]]][[[][
+         ][]][][][[
+         ][[][]]]][[[
+         ]][][[[]]][][[|.each do |unbalanced|
+        unbalanced.should_not be_balanced
+      end
+
+      '[][[][][[][]]][]'.should be_balanced
+      '[[[[[]]][[][]]][]]'.should be_balanced
+    end
   end
 end
 
