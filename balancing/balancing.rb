@@ -42,6 +42,22 @@ describe 'Balancer' do
       '[][[][][[][]]][]'.should be_balanced
       '[[[[[]]][[][]]][]]'.should be_balanced
     end
+
+  end
+
+  it 'works for parens' do
+    ')('.should_not be_balanced
+    '()'.should be_balanced
+  end
+
+  it 'works for braces' do
+    '}{'.should_not be_balanced
+    '{}'.should be_balanced
+  end
+
+  it 'works for angle brackets' do
+    '><'.should_not be_balanced
+    '<>'.should be_balanced
   end
 end
 
@@ -52,16 +68,28 @@ module Balancing
 
   private
   def balance
+    open, close = character_pair
+    return -1 unless open
+
     balance = 0
     self.each_char do |char|
       case char
-      when '['
+      when open
         balance += 1
-      when ']'
+      when close
         balance -= 1
       end
-      return -1 if balance < 0
+      break if balance < 0
     end
     balance
+  end
+
+  def character_pair
+    {
+      '(' => %w|( )|,
+      '[' => %w|[ ]|,
+      '<' => %w|< >|,
+      '{' => %w|{ }|,
+    }[self[0]] || []
   end
 end
