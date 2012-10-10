@@ -59,6 +59,20 @@ describe 'Balancer' do
     '><'.should_not be_balanced
     '<>'.should be_balanced
   end
+
+  it 'works for single quotes' do
+    %q|'|.should_not be_balanced
+    %q|''|.should be_balanced
+    %q|'''|.should_not be_balanced
+    %q|''''|.should be_balanced
+  end
+
+  it 'works for double quotes' do
+    %q|"|.should_not be_balanced
+    %q|""|.should be_balanced
+    %q|"""|.should_not be_balanced
+    %q|""""|.should be_balanced
+  end
 end
 
 module Balancing
@@ -68,9 +82,13 @@ module Balancing
 
   private
   def balance
-    open, close = character_pair
+    return quote_balance if %w|' "|.include? first_char
     return -1 unless open
 
+    pair_balance
+  end
+
+  def pair_balance
     balance = 0
     self.each_char do |char|
       case char
@@ -84,12 +102,28 @@ module Balancing
     balance
   end
 
+  def quote_balance
+    self.scan(first_char).size % 2
+  end
+
   def character_pair
     {
       '(' => %w|( )|,
       '[' => %w|[ ]|,
       '<' => %w|< >|,
       '{' => %w|{ }|,
-    }[self[0]] || []
+    }[first_char] || []
+  end
+
+  def first_char
+    @first_char ||= self[0]
+  end
+
+  def open
+    @open ||= character_pair[0]
+  end
+
+  def close
+    @close ||= character_pair[1]
   end
 end
