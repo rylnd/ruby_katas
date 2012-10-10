@@ -29,3 +29,7 @@ Description to come
 ### [Y Combinator](http://en.wikipedia.org/wiki/Fixed-point_combinator#Y_combinator)
 ----
 Functional Programming! In Ruby!
+
+### Balancing Brackets
+----
+Determines whether a string of brackets/braces/parens/etc. is 'balanced.'
