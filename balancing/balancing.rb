@@ -10,9 +10,21 @@ describe 'Balancer' do
     '[[]]'.should respond_to(:balanced?)
   end
 
-  describe 'balancing brackets' do
-    it 'balances a pair' do
+  context 'recognizing balanced brackets' do
+    example 'opening bracket' do
+      '['.should_not be_balanced
+    end
+
+    example 'closing bracket' do
+      ']'.should_not be_balanced
+    end
+
+    example 'a matched pair' do
       '[]'.should be_balanced
+    end
+
+    example 'an out-of-order pair' do
+      ']['.should_not be_balanced
     end
   end
 end
