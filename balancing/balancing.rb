@@ -59,8 +59,8 @@ module Balancing
         balance += 1
       when ']'
         balance -= 1
-        return -1 if balance < 0
       end
+      return -1 if balance < 0
     end
     balance
   end
