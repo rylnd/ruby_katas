@@ -31,30 +31,21 @@ end
 
 module Balancing
   def balanced?
-    Balancer.new(self).balanced?
+    balance == 0
   end
 
-  class Balancer
-    def initialize(str)
-      @string = str
-      @balance = 0
-    end
-
-    def balanced?
-      balance_count == 0
-    end
-
-    def balance_count
-      @string.each_char do |char|
-        case char
-        when '['
-          @balance += 1
-        when ']'
-          @balance -= 1
-          return -1 if @balance < 0
-        end
+  private
+  def balance
+    balance = 0
+    self.each_char do |char|
+      case char
+      when '['
+        balance += 1
+      when ']'
+        balance -= 1
+        return -1 if balance < 0
       end
-      @balance
     end
+    balance
   end
 end
