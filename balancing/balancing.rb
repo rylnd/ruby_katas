@@ -1,4 +1,5 @@
 require 'rspec'
+require './balancer'
 describe 'Balancing' do
   before(:all) do
     class String
@@ -58,6 +59,16 @@ describe 'Balancing' do
   it 'works for angle brackets' do
     '><'.should_not be_balanced
     '<>'.should be_balanced
+  end
+
+  context 'testing with Balancer' do
+    for i in 1..5
+      Balancer.generate(i).each do |string|
+        example "#{string} is balanced" do
+          string.should be_balanced
+        end
+      end
+    end
   end
 end
 
