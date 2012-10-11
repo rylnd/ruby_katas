@@ -21,6 +21,11 @@ describe 'Balancer' do
   context 'optional open/close' do
     let(:options) { { open: '(', close: ')' } }
     example { should =~ %w|()| }
+
+    context 'two pairs' do
+      let(:count) { 2 }
+      example { should =~ %w|()() (())| }
+    end
   end
 end
 
@@ -38,8 +43,8 @@ class Balancer
     result = []
     for size in 0...count
       for pair in pairs(size, options)
-        for new_pair in pairs(count-size-1, options)
-          result << options[:open] + pair + options[:close] + new_pair
+        for sub_pair in pairs(count-size-1, options)
+          result << options[:open] + pair + options[:close] + sub_pair
         end
       end
     end
