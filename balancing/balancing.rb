@@ -1,5 +1,5 @@
 require 'rspec'
-describe 'Balancer' do
+describe 'Balancing' do
   before(:all) do
     class String
       include Balancing
