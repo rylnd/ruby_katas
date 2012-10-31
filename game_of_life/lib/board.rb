@@ -21,6 +21,10 @@ class Board
     end_game
   end
 
+  def cell_at(x,y)
+    @board[x][y]
+  end
+
   def each_cell
     rows.each_with_index do |row, x|
       row.each_with_index do |cell, y|
@@ -31,19 +35,16 @@ class Board
 
   private
 
-  def alive_neighbors(x,y)
-    neighbors = valid_neighbors(x,y)
-
-    neighbors.reduce(0) do |sum, pair|
-      nx, ny = pair
-      neighbor = self[nx][ny]
+  def alive_neighbors(cell)
+    valid_neighbors(cell).reduce(0) do |sum, pair|
+      neighbor = cell_at(*pair)
       neighbor.alive? ? sum + 1 : sum
     end
   end
 
-  def valid_neighbors(x,y)
-    self[x][y].neighbors.reject do |x,y|
-      x < 0 || x > @size-1 || y < 0 || y > @size-1
+  def valid_neighbors(cell)
+    cell.neighbors.reject do |x,y|
+       x > @size-1 || y > @size-1
     end
   end
 
@@ -56,8 +57,8 @@ class Board
   end
 
   def step
-    each_cell do |cell, x, y|
-      case alive_neighbors(x,y)
+    each_cell do |cell|
+      case alive_neighbors(cell)
       when 0, 1, 4..8
         cell.kill if cell.alive?
       when 3

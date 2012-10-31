@@ -31,17 +31,17 @@ class BoardSquare
   end
 
   def neighbors
-    coordinates = []
-    (-1..1).each do |dx|
-      (-1..1).each do |dy|
-        coordinates << [x+dx, y+dy]
-      end
-    end
-    coordinates.delete([x,y])
-    coordinates
+    possible_neighbors.reject { |x,y| x < 0 || y < 0 }
   end
 
   private
+
+  def possible_neighbors
+    (-1..1).reduce([]) do |pairs, dx|
+      (-1..1).each { |dy| pairs << [x+dx, y+dy] }
+      pairs - [[x,y]]
+    end
+  end
 
   def state
     @state
