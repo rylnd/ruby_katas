@@ -32,9 +32,9 @@ class BoardSquare
 
   def neighbors
     coordinates = []
-    (-1..1).each do |_x|
-      (-1..1).each do |_y|
-        coordinates << [x+_x, y+_y]
+    (-1..1).each do |dx|
+      (-1..1).each do |dy|
+        coordinates << [x+dx, y+dy]
       end
     end
     coordinates.delete([x,y])
