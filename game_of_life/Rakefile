@@ -1,0 +1,36 @@
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require
+require 'rspec/core/rake_task'
+
+Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
+
+task :default => :spec
+RSpec::Core::RakeTask.new(:spec)
+
+namespace :game do
+  directory 'output'
+
+  desc 'Run the simulation'
+  task :run, [:rounds, :step] => 'output' do |_, args|
+    args.with_defaults(:rounds => 10, :step => 1)
+
+    args.rounds.times do |round|
+      steps = (round+1) * args.step
+      Board.new(:steps => steps, :filename => "#{round}.png").run!
+    end
+  end
+
+
+  desc "Generates an animated .gif of the game's progress"
+  task :generate_animation  => :run do
+    slides = Dir['output/*.png'].sort_by do |f|
+      f.gsub('output/', '').split('.')[0].to_i
+    end
+
+    include Magick
+    animation = ImageList.new(*slides)
+    animation.delay = 10
+    animation.write("output/output.gif")
+  end
+end
