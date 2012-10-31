@@ -13,10 +13,8 @@ class BoardOutput
   def generate_image
     @image = ChunkyPNG::Image.new(@board.size, @board.size)
 
-    @board.rows.each_with_index do |row, x|
-      row.each_with_index do |square, y|
-        @image[x,y] = ChunkyPNG::Color(square.color)
-      end
+    @board.each_cell do |cell, x, y|
+      @image[x,y] = ChunkyPNG::Color(cell.color)
     end
   end
 

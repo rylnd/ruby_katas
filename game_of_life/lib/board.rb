@@ -21,6 +21,14 @@ class Board
     end_game
   end
 
+  def each_cell
+    rows.each_with_index do |row, x|
+      row.each_with_index do |cell, y|
+        yield cell, x, y
+      end
+    end
+  end
+
   private
 
   def alive_neighbors(x,y)
@@ -44,25 +52,19 @@ class Board
   end
 
   def step
-    rows.each_with_index do |row, x|
-      row.each_with_index do |square, y|
-        case alive_neighbors(x,y)
-        when 0, 1, 4..8
-          @board[x][y].kill if square.alive?
-        when 3
-          @board[x][y].resurrect if square.dead?
-        end
+    each_cell do |cell, x, y|
+      case alive_neighbors(x,y)
+      when 0, 1, 4..8
+        cell.kill if cell.alive?
+      when 3
+        cell.resurrect if cell.dead?
       end
     end
     step!
   end
 
   def step!
-    rows.each_with_index do |row, x|
-      row.each_with_index do |square, y|
-        square.transition!
-      end
-    end
+    each_cell { |cell| cell.transition! }
   end
 
   def end_game
