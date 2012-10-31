@@ -24,7 +24,7 @@ class Board
   def each_cell
     rows.each_with_index do |row, x|
       row.each_with_index do |cell, y|
-        yield cell, x, y
+        yield(cell, x, y)
       end
     end
   end
@@ -32,14 +32,18 @@ class Board
   private
 
   def alive_neighbors(x,y)
-    neighbors = @board[x][y].neighbors.reject do |x,y|
-      x < 0 || x > @size-1 || y < 0 || y > @size-1
-    end
+    neighbors = valid_neighbors(x,y)
 
     neighbors.reduce(0) do |sum, pair|
       nx, ny = pair
-      neighbor = @board[nx][ny]
+      neighbor = self[nx][ny]
       neighbor.alive? ? sum + 1 : sum
+    end
+  end
+
+  def valid_neighbors(x,y)
+    self[x][y].neighbors.reject do |x,y|
+      x < 0 || x > @size-1 || y < 0 || y > @size-1
     end
   end
 
