@@ -55,6 +55,11 @@ class Board
   end
 
   def step
+    calculate_transitions
+    transition!
+  end
+
+  def calculate_transitions
     each_cell do |cell|
       case alive_neighbors(cell)
       when 0, 1, 4..8
@@ -63,10 +68,9 @@ class Board
         cell.resurrect if cell.dead?
       end
     end
-    step!
   end
 
-  def step!
+  def transition!
     each_cell { |cell| cell.transition! }
   end
 
