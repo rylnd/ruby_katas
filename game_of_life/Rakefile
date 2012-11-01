@@ -8,14 +8,27 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 task :default => :spec
 RSpec::Core::RakeTask.new(:spec)
 
-namespace :game do
-  desc 'Run the simulation'
-  task :run, [:steps, :size] do |_, args|
-    args.with_defaults(:steps => 10, :size => 20)
+desc 'Run the simulation'
+task :run, :steps, :size, :pattern do |_, args|
+  args.with_defaults :steps => 10,
+    :size => 20,
+    :pattern => :glider
 
-    options = { :steps => args.steps.to_i,
-                :size => args.size.to_i }
+  options = { :steps => args.steps.to_i,
+              :size => args.size.to_i,
+              :pattern => args.pattern }
 
-    Board.new(options).run!
+  Board.new(options).run!
+end
+
+namespace :run do
+  desc 'Run the game with a glider'
+  task :glider do
+    Rake::Task[:run].invoke(10, 20, :glider)
+  end
+
+  desc 'Run the game a blinker'
+  task :blinker do
+    Rake::Task[:run].invoke(10, 20, :blinker)
   end
 end

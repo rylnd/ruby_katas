@@ -8,6 +8,10 @@ class Board
     @steps = options[:steps] || 100
     @output = BoardOutput.new(self)
     @grid = instantiate_grid(size)
+
+    if pattern = options[:pattern]
+      self.send(pattern.to_s)
+    end
   end
 
   def [](x)
@@ -88,5 +92,19 @@ class Board
 
   def print
     @output.print
+  end
+
+  def glider
+    self[2][3].resurrect
+    self[2][4].resurrect
+    self[2][5].resurrect
+    self[1][5].resurrect
+    self[0][3].resurrect
+  end
+
+  def blinker
+    self[2][3].resurrect
+    self[2][4].resurrect
+    self[2][5].resurrect
   end
 end
