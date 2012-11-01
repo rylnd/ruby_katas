@@ -62,7 +62,7 @@ class Board
   end
 
   def calculate_transitions
-    each_cell do |cell|
+    cells.each do |cell|
       case alive_neighbors(cell)
       when 0, 1, 4..8
         cell.kill if cell.alive?
@@ -73,7 +73,7 @@ class Board
   end
 
   def transition!
-    each_cell { |cell| cell.transition! }
+    cells.map(&:transition!)
   end
 
   def end_game
