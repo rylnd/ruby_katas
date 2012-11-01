@@ -6,7 +6,7 @@ class Board
   def initialize(options = {})
     @size = options[:size] || 20
     @steps = options[:steps] || 100
-    @filename = options[:filename] || "#{@steps}_steps.png"
+    @output = BoardOutput.new(self)
     @grid = instantiate_grid(size)
   end
 
@@ -15,8 +15,14 @@ class Board
   end
 
   def run!
-    steps.times { step }
-    end_game
+    begin
+      steps.times do
+        step
+        print
+      end
+    ensure
+      end_game
+    end
   end
 
   def cell_at(x, y)
@@ -77,10 +83,10 @@ class Board
   end
 
   def end_game
-    print
+    @output.close
   end
 
   def print
-    BoardOutput.new(self, filename: @filename)
+    @output.print
   end
 end

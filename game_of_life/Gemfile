@@ -1,6 +1,4 @@
-source 'https://rubygems.org'
+source :rubygems
 
-gem 'chunky_png'
 gem 'rake'
-gem 'rmagick'
 gem 'rspec'

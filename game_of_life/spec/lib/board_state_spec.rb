@@ -1,8 +1,10 @@
 describe BoardState do
   let(:subject) { BoardState.new }
   context 'defaults' do
-    it 'starts with a color of black(dead)' do
-      subject.color.should == :black
+    context '#char' do
+      it 'starts with a space char' do
+        subject.char.should == ' '
+      end
     end
   end
 
@@ -11,16 +13,16 @@ describe BoardState do
     before { subject.transition!(next_state) }
 
     context 'without a next state' do
-      it 'stays black(dead)' do
-        subject.color.should == :black
+      it 'stays empty' do
+        subject.char.should == ' '
       end
     end
 
     context 'with a next state of alive' do
       let(:next_state) { true }
 
-      it 'becomes white(alive)' do
-        subject.color.should == :white
+      it 'becomes #' do
+        subject.char.should == '#'
       end
     end
 
@@ -28,7 +30,7 @@ describe BoardState do
       let(:next_state) { false }
 
       it 'becomes black(dead)' do
-        subject.color.should == :black
+        subject.char.should == ' '
       end
     end
   end

@@ -46,7 +46,6 @@ describe Board do
     it 'steps the specified number of times and prints' do
       subject.stub(:print => true)
       subject.should_receive(:step).exactly(100).times
-      subject.should_receive(:end_game).once
 
       subject.run!
     end

@@ -9,7 +9,7 @@ class BoardState
     @alive = next_state unless next_state.nil?
   end
 
-  def color
-    alive ? :white : :black
+  def char
+    alive ? '#' : ' '
   end
 end

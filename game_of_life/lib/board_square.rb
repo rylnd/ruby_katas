@@ -6,8 +6,8 @@ class BoardSquare
     @state = BoardState.new
   end
 
-  def color
-    state.color
+  def char
+    state.char
   end
 
   def transition!

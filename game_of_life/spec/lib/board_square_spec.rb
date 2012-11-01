@@ -15,11 +15,6 @@ describe BoardSquare do
       subject.stub(:state => state)
     end
 
-    it 'delegates #color to BoardState' do
-      state.should_receive(:color)
-      subject.color
-    end
-
     it 'delegates #transition! to BoardState' do
       state.should_receive(:transition!)
       subject.transition!
