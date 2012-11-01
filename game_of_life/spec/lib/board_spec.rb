@@ -33,4 +33,12 @@ describe Board do
       subject.cells.first.should respond_to(:alive?)
     end
   end
+
+  describe '#each_cell' do
+    let(:cells) { subject.rows.flatten.map { |cell| [cell, cell.x, cell.y] } }
+
+    it 'yields each cell' do
+      expect { |block| subject.each_cell &block }.to yield_successive_args(*cells)
+    end
+  end
 end
