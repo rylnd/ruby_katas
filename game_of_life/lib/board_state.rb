@@ -10,6 +10,6 @@ class BoardState
   end
 
   def color
-    @alive ? :white : :black
+    alive ? :white : :black
   end
 end

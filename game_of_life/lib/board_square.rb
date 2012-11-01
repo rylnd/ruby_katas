@@ -1,8 +1,8 @@
 class BoardSquare
-  attr_reader :x, :y
+  attr_reader :x, :y, :state
 
   def initialize(x,y)
-    @x, @y = x,y
+    @x, @y = x, y
     @state = BoardState.new
   end
 
@@ -31,7 +31,7 @@ class BoardSquare
   end
 
   def neighbors
-    possible_neighbors.reject { |x,y| x < 0 || y < 0 }
+    possible_neighbors.reject { |x, y| x < 0 || y < 0 }
   end
 
   private
@@ -41,9 +41,5 @@ class BoardSquare
       (-1..1).each { |dy| pairs << [x+dx, y+dy] }
       pairs - [[x,y]]
     end
-  end
-
-  def state
-    @state
   end
 end

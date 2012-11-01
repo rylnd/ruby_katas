@@ -1,19 +1,17 @@
 class Board
-  attr_reader :steps, :size
+  attr_reader :steps, :size, :grid
+
+  alias rows grid
 
   def initialize(options = {})
     @size = options[:size] || 20
     @steps = options[:steps] || 100
     @filename = options[:filename] || "#{@steps}_steps.png"
-    @board = instantiate_board(@size)
+    @grid = instantiate_grid(@size)
   end
 
   def [](x)
-    @board[x] || []
-  end
-
-  def rows
-    @board
+    grid[x] || []
   end
 
   def run!
@@ -21,8 +19,8 @@ class Board
     end_game
   end
 
-  def cell_at(x,y)
-    @board[x][y]
+  def cell_at(x, y)
+    grid[x][y]
   end
 
   def each_cell
@@ -43,15 +41,15 @@ class Board
   end
 
   def valid_neighbors(cell)
-    cell.neighbors.reject do |x,y|
-       x > @size-1 || y > @size-1
+    cell.neighbors.reject do |x, y|
+      x > @size-1 || y > @size-1
     end
   end
 
-  def instantiate_board(size)
+  def instantiate_grid(size)
     Array.new(size) do |x|
       Array.new(size) do |y|
-        BoardSquare.new(x,y)
+        BoardSquare.new(x, y)
       end
     end
   end

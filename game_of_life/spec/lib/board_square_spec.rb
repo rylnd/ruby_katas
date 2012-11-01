@@ -52,6 +52,7 @@ describe BoardSquare do
 
     context 'point on an lower edge' do
       let(:subject) { BoardSquare.new(0,1) }
+
       it 'returns the right number of neighbors' do
         subject.neighbors.size.should == 5
       end
@@ -65,6 +66,7 @@ describe BoardSquare do
 
     context 'point on a lower corner' do
       let(:subject) { BoardSquare.new(0,0) }
+
       it 'returns the right number of neighbors' do
         subject.neighbors.size.should == 3
       end
