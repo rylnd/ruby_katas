@@ -23,6 +23,10 @@ class Board
     grid[x][y]
   end
 
+  def cells
+    rows.flatten
+  end
+
   def each_cell
     rows.each_with_index do |row, x|
       row.each_with_index do |cell, y|
