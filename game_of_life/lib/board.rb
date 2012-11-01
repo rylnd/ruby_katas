@@ -28,10 +28,8 @@ class Board
   end
 
   def each_cell
-    rows.each_with_index do |row, x|
-      row.each_with_index do |cell, y|
-        yield(cell, x, y)
-      end
+    cells.each do |cell|
+      yield(cell, cell.x, cell.y)
     end
   end
 
