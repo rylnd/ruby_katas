@@ -7,7 +7,7 @@ class Board
     @size = options[:size] || 20
     @steps = options[:steps] || 100
     @filename = options[:filename] || "#{@steps}_steps.png"
-    @grid = instantiate_grid(@size)
+    @grid = instantiate_grid(size)
   end
 
   def [](x)
@@ -15,7 +15,7 @@ class Board
   end
 
   def run!
-    @steps.times { step }
+    steps.times { step }
     end_game
   end
 
@@ -42,7 +42,7 @@ class Board
 
   def valid_neighbors(cell)
     cell.neighbors.reject do |x, y|
-      x > @size-1 || y > @size-1
+      x > size-1 || y > size-1
     end
   end
 
