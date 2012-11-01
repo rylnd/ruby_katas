@@ -21,14 +21,8 @@ task :run, :steps, :size, :pattern do |_, args|
   Board.new(options).run!
 end
 
-namespace :run do
-  desc 'Run the game with a glider'
-  task :glider do
-    Rake::Task[:run].invoke(10, 20, :glider)
-  end
-
-  desc 'Run the game a blinker'
-  task :blinker do
-    Rake::Task[:run].invoke(10, 20, :blinker)
-  end
+desc 'Run the game with a specific pattern. Defaults to glider'
+task :pattern, :pattern do |_, args|
+  args.with_defaults(:pattern => :glider)
+  Rake::Task[:run].invoke(10, 20, args.pattern)
 end

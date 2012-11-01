@@ -9,9 +9,8 @@ class Board
     @output = BoardOutput.new(self)
     @grid = instantiate_grid(size)
 
-    if pattern = options[:pattern]
-      self.send(pattern.to_s)
-    end
+    pattern = options[:pattern] || :glider
+    initialize_with(self.send(pattern.to_sym))
   end
 
   def [](x)
@@ -95,16 +94,34 @@ class Board
   end
 
   def glider
-    self[2][3].resurrect
-    self[2][4].resurrect
-    self[2][5].resurrect
-    self[1][5].resurrect
-    self[0][3].resurrect
+    [0, 3,
+     1, 5,
+     2, 3,
+     2, 4,
+     2, 5]
   end
 
   def blinker
-    self[2][3].resurrect
-    self[2][4].resurrect
-    self[2][5].resurrect
+    [2, 3,
+     2, 4,
+     2, 5]
+  end
+
+  def spaceship
+    [5, 6,
+     6, 5,
+     7, 5,
+     8, 5,
+     8, 6,
+     8, 7,
+     8, 8,
+     7, 9,
+     5, 9]
+  end
+
+  def initialize_with(coordinates)
+     coordinates.each_slice(2) do |x,y|
+      self[x][y].resurrect
+     end
   end
 end
