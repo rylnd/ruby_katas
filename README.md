@@ -37,3 +37,5 @@ Determines whether a string of brackets/braces/parens/etc. is 'balanced.'
 ### [Game of Life](http://en.wikipedia.org/wiki/Conway's_Game_of_Life)
 ----
 It's cellular automatonimation!
+
+Uses curses to display and animate the board.
