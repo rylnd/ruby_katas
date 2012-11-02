@@ -5,11 +5,16 @@ describe Board do
   describe 'defaults' do
     its(:size) { should == 20 }
     its(:steps) { should == 100 }
+    its(:pattern) { should == :glider }
 
     context 'overriding defaults' do
-      let(:options) { { :size => 100, :steps => 1000 } }
+      let(:options) { { :size => 100,
+                        :steps => 1000,
+                        :pattern => :blinker } }
+
       its(:size) { should == 100 }
       its(:steps) { should == 1000 }
+      its(:pattern) { should == :blinker }
     end
   end
 

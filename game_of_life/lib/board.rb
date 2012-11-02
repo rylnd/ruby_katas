@@ -1,16 +1,17 @@
 class Board
-  attr_reader :steps, :size, :grid
+  attr_reader :steps, :size, :grid, :pattern
 
   alias rows grid
 
   def initialize(options = {})
     @size = options[:size] || 20
     @steps = options[:steps] || 100
-    @output = BoardOutput.new(self)
-    @grid = instantiate_grid(size)
+    @pattern = options[:pattern] || :glider
 
-    pattern = options[:pattern] || :glider
-    initialize_with(self.send(pattern.to_sym))
+    @grid = instantiate_grid(size)
+    @output = BoardOutput.new(self)
+
+    initialize_with(Patterns.const_get(pattern.upcase))
   end
 
   def [](x)
@@ -91,32 +92,6 @@ class Board
 
   def print
     @output.print
-  end
-
-  def glider
-    [0, 3,
-     1, 5,
-     2, 3,
-     2, 4,
-     2, 5]
-  end
-
-  def blinker
-    [2, 3,
-     2, 4,
-     2, 5]
-  end
-
-  def spaceship
-    [5, 6,
-     6, 5,
-     7, 5,
-     8, 5,
-     8, 6,
-     8, 7,
-     8, 8,
-     7, 9,
-     5, 9]
   end
 
   def initialize_with(coordinates)
