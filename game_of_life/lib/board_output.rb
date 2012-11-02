@@ -11,7 +11,7 @@ class BoardOutput
   def print
     update_window
     window.refresh
-    sleep 0.2
+    sleep 0.1
   end
 
   def close

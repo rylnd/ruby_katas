@@ -34,7 +34,7 @@ class Board
   end
 
   def cells
-    rows.flatten
+    @cells ||= rows.flatten
   end
 
   def each_cell
