@@ -5,7 +5,7 @@ class Board
 
   def initialize(options = {})
     @size = options[:size] || 20
-    @steps = options[:steps] || 100
+    @steps = options[:steps] || 20
     @pattern = options[:pattern] || :glider
 
     @grid = instantiate_grid(size)

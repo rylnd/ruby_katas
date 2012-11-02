@@ -4,7 +4,7 @@ describe Board do
 
   describe 'defaults' do
     its(:size) { should == 20 }
-    its(:steps) { should == 100 }
+    its(:steps) { should == 20 }
     its(:pattern) { should == :glider }
 
     context 'overriding defaults' do
@@ -50,7 +50,7 @@ describe Board do
   describe '#run!' do
     it 'steps the specified number of times and prints' do
       subject.stub(:print => true)
-      subject.should_receive(:step).exactly(100).times
+      subject.should_receive(:step).exactly(20).times
 
       subject.run!
     end
